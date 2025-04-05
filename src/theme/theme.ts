@@ -1,4 +1,3 @@
-// theme.ts
 import { createTheme, responsiveFontSizes } from '@mui/material';
 import { ThemeColors } from './themeColors';
 
@@ -76,6 +75,33 @@ export const appTheme = responsiveFontSizes(createTheme({
         },
       },
     },
-    // Add more component overrides as needed
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 500,
+          fontSize: '0.95rem',
+          transition: 'color 0.3s ease',
+          outline: 'none',
+          boxShadow: 'none',
+          '&:focus': {
+            outline: 'none',
+            boxShadow: 'none',
+          },
+        },
+      },
+      defaultProps: {
+        disableRipple: true,
+        disableFocusRipple: true,
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: {
+          height: 3,
+          borderRadius: 2,
+        },
+      },
+    },
   },
 }));

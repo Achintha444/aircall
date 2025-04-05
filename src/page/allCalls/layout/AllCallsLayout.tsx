@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import useAirCall from "../../../state/airCallState/hooks/useAirCall";
 import CallButton from '../components/CallButton';
 import CallItemList from '../components/CallItemList';
@@ -13,12 +12,10 @@ function AllCallsLayout() {
 
   return (
     <div>
-      <Box display="flex" justifyContent="flex-end" mb={3}>
-        <CallButton
-          onClick={archiveAllUnarchivedCalls}
-          isArchived={false}
-        />
-      </Box>
+      <CallButton
+        onClick={archiveAllUnarchivedCalls}
+        isArchived={false}
+      />
 
       <CallItemList
         calls={allNonArchivedCalls}

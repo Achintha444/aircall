@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Archive, Unarchive } from "@mui/icons-material";
 
 /**
@@ -26,13 +26,16 @@ function CallButton(props: CallButtonProps) {
     const { onClick, isArchived } = props;
 
     return (
-        <Button
-            variant="outlined"
-            onClick={onClick}
-            startIcon={isArchived ? <Unarchive /> : <Archive />}
-        >
-            {isArchived ? "Unarchive All" : "Archive All"}
-        </Button>
+        <Box display="flex" justifyContent="flex-end" mb={3}>
+            <Button
+                variant="outlined"
+                onClick={onClick}
+                startIcon={isArchived ? <Unarchive /> : <Archive />}
+            >
+                {isArchived ? "Unarchive All" : "Archive All"}
+            </Button>
+        </Box>
+
     );
 }
 
