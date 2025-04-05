@@ -2,6 +2,7 @@ import { FunctionComponent, PropsWithChildren, ReactElement, useMemo, useState }
 import AirCallContext from "../contexts/airCallContext";
 import { getAllActivities } from "../api/getAllCalls";
 import { Call } from "../models/activity";
+import { updateActivity } from "../api/updateCall";
 
 /**
  * Props interface for the [AirCallProvider]
@@ -76,7 +77,7 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
 
         try {
             // Update call status in the API
-            await updateCallStatus(callId, isArchived);
+            await updateActivity(callId, isArchived);
 
             // update the archived and non-archived calls in the state
             if (isArchived) {
@@ -110,7 +111,11 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
 
         try {
             // Archive all unarchived calls in the API
-            await Promise.allSettled(allNonArchivedCalls.map((call) => updateCallStatus(call.id, true)));
+            await Promise.all(allNonArchivedCalls.map((call) => updateCallStatus(call.id, true)));
+
+            // Update the state to reflect the changes
+            // setAllArchivedCalls((prev) => [...prev, ...allNonArchivedCalls]);
+            // setAllNonArchivedCalls([]);
         } catch (error) {
             console.error("Error archiving all unarchived calls:", error);
             setError((error as Error).message);

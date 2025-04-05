@@ -1,22 +1,37 @@
 import {
+    Archive,
+    ArrowOutward,
+    CallReceived,
+    PhoneInTalk,
+    PhoneMissed,
+    Unarchive,
+    Voicemail,
+} from '@mui/icons-material';
+import {
+    Avatar,
+    IconButton,
     ListItem,
     ListItemAvatar,
-    Avatar,
     ListItemText,
-    IconButton,
     Stack,
     Typography,
 } from '@mui/material';
-import {
-    PhoneMissed,
-    PhoneInTalk,
-    Voicemail,
-    CallReceived,
-    ArrowOutward,
-    Archive,
-    Unarchive,
-} from '@mui/icons-material';
 import { Call } from '../../../state/airCallState/models/activity';
+
+/**
+ * CallItem component props.
+ */
+interface CallItemProps {
+    /**
+     * Call object containing call details.
+     */
+    call: Call;
+
+    /**
+     * Function to update the call status.
+     */
+    updateCallStatus: (callId: string, isArchived: boolean) => Promise<void>
+}
 
 /**
  * CallItem component to display individual call details.
@@ -24,7 +39,9 @@ import { Call } from '../../../state/airCallState/models/activity';
  * @param {Call} call - The call object containing call details.
  * @returns {JSX.Element} - Rendered CallItem component.
  */
-function CallItem(call: Call) {
+function CallItem(props: CallItemProps) {
+    const { call, updateCallStatus } = props;
+
     /**
      * Get call icon based on call type.
      */
@@ -60,7 +77,11 @@ function CallItem(call: Call) {
             key={call.id}
             sx={{ width: '100%' }}
             secondaryAction={
-                <IconButton edge="end" aria-label="archive">
+                <IconButton 
+                    edge="end" 
+                    aria-label="archive" 
+                    onClick={() => updateCallStatus(call.id, !call.is_archived)}
+                >
                     {call.is_archived ? <Unarchive /> : <Archive />}
                 </IconButton>
             }
