@@ -6,10 +6,21 @@ import AllArchivedCalls from '../../allCalls/pages/AllArchivedCalls';
 import Header from '../components/Header';
 import useAirCall from '../../../state/airCallState/hooks/useAirCall';
 
+/**
+ * MainLayout component to display the main layout of the application.
+ *
+ * @returns JSX Element representing the main layout.
+ */
 function MainLayout() {
     const { loading, error } = useAirCall();
     const [currentTab, setCurrentTab] = useState(0);
 
+    /**
+     * Handle tab change event.
+     *
+     * @param _event - The event object.
+     * @param newValue - The new value of the selected tab.
+     */
     const handleChange = (_event: SyntheticEvent, newValue: number) => {
         setCurrentTab(newValue);
     };
