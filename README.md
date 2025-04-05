@@ -1,3 +1,4 @@
+<a href="https://github.com/Achintha444/aircall/blob/master/.github/workflows/deploy.yml"><img src="https://github.com/Achintha444/aircall/actions/workflows/deploy.yml/badge.svg" alt="👷 PR Builder"></a>
 # 📞 Aircall – Hiring Assignment
 
 This is a simplified version of the Aircall app UI, built as part of a hiring assignment. It shows call activities, allows archiving/unarchiving calls, and uses a clean UI built with React, Vite, and Material UI.
