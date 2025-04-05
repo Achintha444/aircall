@@ -1,54 +1,69 @@
-# React + TypeScript + Vite
+# 📞 Aircall – Hiring Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simplified version of the Aircall app UI, built as part of a hiring assignment. It shows call activities, allows archiving/unarchiving calls, and uses a clean UI built with React, Vite, and Material UI.
 
-Currently, two official plugins are available:
+## 🔧 What I Changed
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The original project was built using **React 16** and **Create React App**. I migrated it to a modern setup with the following improvements:
 
-## Expanding the ESLint configuration
+- Switched from **CRA to Vite** for faster builds and better DX
+- Upgraded **React 16 → React 19**
+- Replaced inline and basic styles with **Material UI v7**
+- Added a **custom theme system** with scalable color tokens
+- Refactored the component structure for better readability and reusability
+- Set up **GitHub Actions** to auto-deploy to GitHub Pages on push to `master`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🔍 Features
+
+- View all call activities (active and archived)
+- Archive or unarchive individual calls
+- Archive all with one click
+- Responsive layout
+- Clean UI with custom MUI theme
+- Fast build with Vite
+
+
+## 🌐 Live Demo
+
+[https://achintha444.github.io/aircall](https://achintha444.github.io/aircall)
+
+
+## 🛠 Local Setup
+
+### Requirements
+
+- Node.js `>=18`
+- npm `>=9`
+
+### Clone and run locally
+
+```bash
+git clone https://github.com/achintha444/aircall.git
+cd aircall
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+App runs at: http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Manual Deployment (Optional)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+This app is deployed to GitHub Pages using GitHub Actions.
+
+```bash
+npm run build
+npm run deploy
 ```
+
+## 📦 Tech Stack
+
+- React 19
+- Vite
+- TypeScript
+- Material UI v7
+- Axios
+- GitHub Actions + gh-pages
+
+## ℹ️ Note
+This project was done for evaluation purposes only. Not intended for production use.
