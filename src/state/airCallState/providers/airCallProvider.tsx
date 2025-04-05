@@ -82,6 +82,7 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
             // update the archived and non-archived calls in the state
             if (isArchived) {
                 const archivedCall = allNonArchivedCalls.find((call) => call.id === callId);
+
                 if (archivedCall) {
                     setAllArchivedCalls((prev) => [...prev, archivedCall]);
                     setAllNonArchivedCalls((prev) => prev.filter((call) => call.id !== callId));
@@ -89,6 +90,7 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
             }
             else {
                 const nonArchivedCall = allArchivedCalls.find((call) => call.id === callId);
+
                 if (nonArchivedCall) {
                     setAllNonArchivedCalls((prev) => [...prev, nonArchivedCall]);
                     setAllArchivedCalls((prev) => prev.filter((call) => call.id !== callId));
@@ -112,10 +114,6 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
         try {
             // Archive all unarchived calls in the API
             await Promise.all(allNonArchivedCalls.map((call) => updateCallStatus(call.id, true)));
-
-            // Update the state to reflect the changes
-            // setAllArchivedCalls((prev) => [...prev, ...allNonArchivedCalls]);
-            // setAllNonArchivedCalls([]);
         } catch (error) {
             console.error("Error archiving all unarchived calls:", error);
             setError((error as Error).message);

@@ -2,6 +2,9 @@
 import { createTheme, responsiveFontSizes } from '@mui/material';
 import { ThemeColors } from './themeColors';
 
+/**
+ * Theme configuration for the application.
+ */
 export const appTheme = responsiveFontSizes(createTheme({
   palette: {
     mode: 'light',
@@ -19,25 +22,17 @@ export const appTheme = responsiveFontSizes(createTheme({
       disabled: ThemeColors.colorTextDisabled,
     },
     divider: ThemeColors.colorDivider,
-    success: {
-      main: ThemeColors.colorSuccess,
-    },
-    warning: {
-      main: ThemeColors.colorWarning,
-    },
-    error: {
-      main: ThemeColors.colorError,
-    },
-    info: {
-      main: ThemeColors.colorInfo,
-    },
+    success: { main: ThemeColors.colorSuccess },
+    warning: { main: ThemeColors.colorWarning },
+    error: { main: ThemeColors.colorError },
+    info: { main: ThemeColors.colorInfo },
   },
 
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
     fontSize: 14,
     button: {
-      textTransform: 'none', // Avoid ALL CAPS
+      textTransform: 'none',
     },
   },
 
@@ -68,19 +63,19 @@ export const appTheme = responsiveFontSizes(createTheme({
       },
     },
     MuiListItemButton: {
-        styleOverrides: {
-          root: {
-            color: ThemeColors.colorTextPrimary, // Ensure text is visible
-            backgroundColor: ThemeColors.colorAccent + '11', // translucent background,
-            textAlign: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-            '&:hover': {
-              backgroundColor: ThemeColors.colorAccent + '22', // translucent hover
-            },
+      styleOverrides: {
+        root: {
+          color: ThemeColors.colorTextPrimary,
+          backgroundColor: ThemeColors.colorAccent + '11',
+          textAlign: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+          '&:hover': {
+            backgroundColor: ThemeColors.colorAccent + '22',
           },
         },
+      },
     },
-    // Add more global component overrides here as needed
+    // Add more component overrides as needed
   },
 }));

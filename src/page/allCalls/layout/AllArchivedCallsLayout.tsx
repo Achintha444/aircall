@@ -1,9 +1,12 @@
-import List from '@mui/material/List';
-import useAirCall from "../../../state/airCallState/hooks/useAirCall";
-import { Call } from "../../../state/airCallState/models/activity";
-import CallItem from "../components/CallItem";
 import { Button } from '@mui/material';
+import useAirCall from "../../../state/airCallState/hooks/useAirCall";
+import CallItemList from '../components/CallItemList';
 
+/**
+ * AllArchivedCallsLayout component to display all archived calls.
+ * 
+ * @returns JSX Element representing the layout for all archived calls.
+ */
 function AllArchivedCallsLayout() {
   const { allArchivedCalls, updateCallStatus, unarchiveAllArchivedCalls } = useAirCall();
 
@@ -12,13 +15,12 @@ function AllArchivedCallsLayout() {
       <Button variant="contained" onClick={unarchiveAllArchivedCalls}>
         Unarchive All
       </Button>
-      <List>
-        {
-          allArchivedCalls.map((call: Call) => (
-            <CallItem key={call.id} call={call} updateCallStatus={updateCallStatus} />
-          ))
-        }
-        </List>
+     
+     <CallItemList
+        calls={allArchivedCalls}
+        updateCallStatus={updateCallStatus}
+      />
+      
     </div>
   );
 }

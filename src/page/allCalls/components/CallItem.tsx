@@ -15,11 +15,12 @@ import {
     ListItemText,
     Stack,
     Typography,
+    Box,
 } from '@mui/material';
 import { Call } from '../../../state/airCallState/models/activity';
 
 /**
- * CallItem component props.
+ * Props interface for CallItem component.
  */
 interface CallItemProps {
     /**
@@ -28,22 +29,24 @@ interface CallItemProps {
     call: Call;
 
     /**
-     * Function to update the call status.
+     * Function to update the call status (archived/unarchived).
      */
-    updateCallStatus: (callId: string, isArchived: boolean) => Promise<void>
+    updateCallStatus: (callId: string, isArchived: boolean) => Promise<void>;
 }
 
 /**
  * CallItem component to display individual call details.
  *
- * @param {Call} call - The call object containing call details.
- * @returns {JSX.Element} - Rendered CallItem component.
+ * @param props - Props containing call details and update function.
+ * @returns JSX Element representing the call item.
  */
 function CallItem(props: CallItemProps) {
     const { call, updateCallStatus } = props;
 
     /**
-     * Get call icon based on call type.
+     * Function to get the icon based on the call type.
+     *
+     * @returns JSX Element representing the call type icon.
      */
     const getCallIcon = () => {
         switch (call.call_type) {
@@ -59,7 +62,9 @@ function CallItem(props: CallItemProps) {
     };
 
     /**
-     * Get direction icon based on call direction.
+     * Function to get the icon based on the call direction.
+     *
+     * @returns JSX Element representing the call direction icon.
      */
     const getDirectionIcon = () => {
         switch (call.direction) {
@@ -74,39 +79,50 @@ function CallItem(props: CallItemProps) {
 
     return (
         <ListItem
-            key={call.id}
+            disablePadding
             sx={{ width: '100%' }}
             secondaryAction={
-                <IconButton 
-                    edge="end" 
-                    aria-label="archive" 
+                <IconButton
+                    edge="end"
+                    aria-label="archive"
                     onClick={() => updateCallStatus(call.id, !call.is_archived)}
                 >
                     {call.is_archived ? <Unarchive /> : <Archive />}
                 </IconButton>
             }
         >
-            <ListItemAvatar>
-                <Avatar>
-                    {getCallIcon()}
-                </Avatar>
-            </ListItemAvatar>
+            <Box
+                sx={{
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    borderRadius: 2,
+                    p: 2,
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                }}
+            >
+                <ListItemAvatar>
+                    <Avatar>{getCallIcon()}</Avatar>
+                </ListItemAvatar>
 
-            <ListItemText
-                primary={
-                    <Stack spacing={0.5}>
-                        <Typography variant="body1">{call.from}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {call.to}
-                        </Typography>
-                    </Stack>
-                }
-                secondary={
-                    <Stack direction="row" spacing={1} alignItems="center">
-                        {getDirectionIcon()}
-                    </Stack>
-                }
-            />
+                <ListItemText
+                    primary={
+                        <Stack spacing={0.5}>
+                            <Typography variant="body1">{call.from}</Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {call.to}
+                            </Typography>
+                        </Stack>
+                    }
+                    secondary={
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            {getDirectionIcon()}
+                        </Stack>
+                    }
+                />
+                {/* IconButton is placed in secondaryAction */}
+            </Box>
         </ListItem>
     );
 }

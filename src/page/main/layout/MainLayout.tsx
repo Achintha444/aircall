@@ -1,13 +1,13 @@
-import { SyntheticEvent, useState } from "react";
-import AllCalls from "../../allCalls/pages/AllCalls";
-import Header from "../components/Header";
-import { Tab, Tabs } from "@mui/material";
-import useAirCall from "../../../state/airCallState/hooks/useAirCall";
-import AllArchivedCalls from "../../allCalls/pages/AllArchivedCalls";
+import { SyntheticEvent, useState } from 'react';
+import { Box, Tabs, Tab, Typography, Paper, Container, CircularProgress } from '@mui/material';
+
+import AllCalls from '../../allCalls/pages/AllCalls';
+import AllArchivedCalls from '../../allCalls/pages/AllArchivedCalls';
+import Header from '../components/Header';
+import useAirCall from '../../../state/airCallState/hooks/useAirCall';
 
 function MainLayout() {
     const { loading, error } = useAirCall();
-
     const [currentTab, setCurrentTab] = useState(0);
 
     const handleChange = (_event: SyntheticEvent, newValue: number) => {
@@ -16,41 +16,54 @@ function MainLayout() {
 
     if (loading) {
         return (
-            <div className="flex flex-col items-center justify-center w-full h-full">
-                <h1>Loading...</h1>
-            </div>
+            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
+                <CircularProgress />
+                <Typography mt={2}>Loading calls...</Typography>
+            </Box>
         );
     }
 
     if (error) {
         return (
-            <div className="flex flex-col items-center justify-center w-full h-full">
-                <h1>{error}</h1>
-            </div>
+            <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
+                <Typography variant="h6" color="error">
+                    {error}
+                </Typography>
+            </Box>
         );
     }
 
     return (
-        <span className="flex flex-col items-center justify-center w-full">
-            <Header />            
+        <Box
+            sx={{
+                minHeight: '100vh',
+                width: '50vw',
+                backgroundColor: 'background.default',
+                display: 'flex',
+                flexDirection: 'column'
+            }}
+        >
+            <Header />
 
-            <Tabs value={currentTab} onChange={handleChange} aria-label="basic tabs example" className="w-full">
-                <Tab label="Activities" />
-                <Tab label="Archived Calls" />
-            </Tabs>
+            <Paper elevation={1} square sx={{ px: 2, bgcolor: 'background.paper' }}>
+                <Tabs
+                    value={currentTab}
+                    onChange={handleChange}
+                    aria-label="Call Tabs"
+                    indicatorColor="primary"
+                    textColor="primary"
+                    variant="fullWidth"
+                >
+                    <Tab label="Activities" />
+                    <Tab label="Archived Calls" />
+                </Tabs>
+            </Paper>
 
-            {
-                currentTab === 0 && (
-                    <AllCalls />
-                )
-            }
-
-            {
-                currentTab === 1 && (
-                    <AllArchivedCalls />
-                )
-            }
-        </span>
+            <Container maxWidth="md" sx={{ py: 4, flexGrow: 1 }}>
+                {currentTab === 0 && <AllCalls />}
+                {currentTab === 1 && <AllArchivedCalls />}
+            </Container>
+        </Box>
     );
 }
 

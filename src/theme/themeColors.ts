@@ -1,28 +1,30 @@
-// themeColors.ts
-
+/**
+ * Theme colors for the application.
+ */
 export const ThemeColors = {
     // Primary brand colors
-    colorPrimary: '#1976d2',            // Blue (Material default, professional)
-    colorContrast: '#ffffff',           // For contrast text on primary buttons
-
+    colorPrimary: '#2AC420',            // Bright green from SVG
+    colorContrast: '#ffffff',           // White text on green
+  
     // Background
-    colorWhitePrimary: '#f9f9f9',       // Light background
-    colorPaper: '#ffffff',              // Card and paper surfaces
-
+    colorWhitePrimary: '#f5f5f5',       // Slightly off-white for background
+    colorPaper: '#ffffff',              // Paper surface
+  
     // Text
-    colorTextPrimary: '#212121',        // Strong dark grey for primary text
-    colorTextSecondary: '#616161',      // Muted grey for secondary text
-    colorTextDisabled: '#9e9e9e',       // For disabled text or hint
-
+    colorTextPrimary: '#424242',        // Dark grey from SVG bars
+    colorTextSecondary: '#757575',      // Slightly lighter grey for secondary
+    colorTextDisabled: '#bdbdbd',       // Light grey for disabled text
+  
     // Divider
-    colorDivider: '#e0e0e0',
-
-    // Status Colors (Optional)
+    colorDivider: '#e0e0e0',            // Soft divider
+  
+    // Status Colors
     colorSuccess: '#2e7d32',
     colorWarning: '#ed6c02',
     colorError: '#d32f2f',
     colorInfo: '#0288d1',
-
+  
     // Accent colors
-    colorAccent: '#00acc1',             // Optional accent/hover
-};
+    colorAccent: '#2AC420',             // Same as primary, used for hover bg etc.
+  };
+  
