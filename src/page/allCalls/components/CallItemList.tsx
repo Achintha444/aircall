@@ -1,6 +1,6 @@
 import { List } from "@mui/material";
 import CallItem from "./CallItem";
-import { Call } from "../../../state/airCallState/models/activity";
+import { Call } from "../../../state/airCallState/models/call";
 
 interface CallItemListProps {
     /**

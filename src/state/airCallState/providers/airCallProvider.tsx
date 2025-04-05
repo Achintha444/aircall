@@ -1,7 +1,7 @@
 import { FunctionComponent, PropsWithChildren, ReactElement, useMemo, useState } from "react";
 import AirCallContext from "../contexts/airCallContext";
 import { getAllActivities } from "../api/getAllCalls";
-import { Call } from "../models/activity";
+import { Call } from "../models/call";
 import { updateActivity } from "../api/updateCall";
 
 /**

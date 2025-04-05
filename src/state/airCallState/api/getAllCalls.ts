@@ -1,5 +1,5 @@
 import APIClient from "../../../service/apiClient";
-import { Call } from "../models/activity";
+import { Call } from "../models/call";
 
 /**
  * Fetch all activity calls for the Activity Feed.

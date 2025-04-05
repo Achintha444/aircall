@@ -17,37 +17,35 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import { Call } from '../../../state/airCallState/models/activity';
+import { Call } from '../../../state/airCallState/models/call';
 
 /**
  * Props interface for CallItem component.
  */
 interface CallItemProps {
-    /**
-     * Call object containing call details.
-     */
     call: Call;
-
-    /**
-     * Function to update the call status (archived/unarchived).
-     */
     updateCallStatus: (callId: string, isArchived: boolean) => Promise<void>;
 }
 
-/**
- * CallItem component to display individual call details.
- *
- * @param props - Props containing call details and update function.
- * @returns JSX Element representing the call item.
- */
-function CallItem(props: CallItemProps) {
-    const { call, updateCallStatus } = props;
+/** Format seconds into mm:ss */
+const formatDuration = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+};
 
-    /**
-  * Function to get the icon based on the call type.
-  *
-  * @returns JSX Element representing the call type icon.
-  */
+/** Format ISO date into something like "Apr 5, 3:30 PM" */
+const formatDateTime = (isoString: string): string => {
+    const date = new Date(isoString);
+    return date.toLocaleString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+    });
+};
+
+function CallItem({ call, updateCallStatus }: CallItemProps) {
     const getCallIcon = () => {
         switch (call.call_type) {
             case 'missed':
@@ -59,27 +57,32 @@ function CallItem(props: CallItemProps) {
             default:
                 return null;
         }
-    };;
+    };
 
-    /**
-     * Function to get the icon based on the call direction.
-     *
-     * @returns JSX Element representing the call direction icon.
-     */
     const getDirectionIcon = () => {
+        const commonProps = {
+            fontSize: 'small',
+            sx: { color: 'text.secondary' },
+        };
+
         switch (call.direction) {
             case 'inbound':
-                return <CallReceived color="action" fontSize="small" />;
+                return <CallReceived
+                    style={{
+                        ...commonProps,
+                    }}
+                />;
             case 'outbound':
-                return <ArrowOutward color="action" fontSize="small" />;
+                return <ArrowOutward
+                    style={{
+                        ...commonProps,
+                    }}
+                />;
             default:
                 return null;
         }
     };
 
-    /**
- * Function to get the avatar background color based on call type.
- */
     const getAvatarColor = () => {
         switch (call.call_type) {
             case 'missed':
@@ -89,7 +92,7 @@ function CallItem(props: CallItemProps) {
             case 'voicemail':
                 return 'info.main';
             default:
-                return 'grey.500'; // fallback color
+                return 'grey.500';
         }
     };
 
@@ -98,13 +101,17 @@ function CallItem(props: CallItemProps) {
             disablePadding
             sx={{ width: '100%' }}
             secondaryAction={
-                <IconButton
-                    edge="end"
-                    aria-label="archive"
-                    onClick={() => updateCallStatus(call.id, !call.is_archived)}
-                >
-                    {call.is_archived ? <Unarchive /> : <Archive />}
-                </IconButton>
+                <Stack direction="row" spacing={1} alignItems="center">
+                    {/* Direction icon moved here to the right */}
+
+                    <IconButton
+                        edge="end"
+                        aria-label={call.is_archived ? 'unarchive' : 'archive'}
+                        onClick={() => updateCallStatus(call.id, !call.is_archived)}
+                    >
+                        {call.is_archived ? <Unarchive /> : <Archive />}
+                    </IconButton>
+                </Stack>
             }
         >
             <Box
@@ -118,28 +125,33 @@ function CallItem(props: CallItemProps) {
                     alignItems: 'center',
                 }}
             >
+                {/* Left Avatar */}
                 <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: getAvatarColor() }}>
-                        {getCallIcon()}
-                    </Avatar>
+                    <Avatar sx={{ bgcolor: getAvatarColor() }}>{getCallIcon()}</Avatar>
                 </ListItemAvatar>
 
+                {/* Text content */}
                 <ListItemText
                     primary={
                         <Stack spacing={0.5}>
                             <Typography variant="body1">{call.from}</Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {call.to}
+                                to {call.to} via {call.via}
                             </Typography>
                         </Stack>
                     }
                     secondary={
-                        <Stack direction="row" spacing={1} alignItems="center">
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            <Typography variant="caption" color="text.secondary">
+                                {formatDateTime(call.created_at)}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                                Duration: {formatDuration(call.duration)}
+                            </Typography>
                             {getDirectionIcon()}
                         </Stack>
                     }
                 />
-                {/* IconButton is placed in secondaryAction */}
             </Box>
         </ListItem>
     );

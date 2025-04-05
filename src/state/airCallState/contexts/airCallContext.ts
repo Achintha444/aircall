@@ -1,6 +1,6 @@
 import { Context, createContext } from "react";
 
-import { Call } from "../models/activity";
+import { Call } from "../models/call";
 
 /**
  * Props interface for AirCallContext.
