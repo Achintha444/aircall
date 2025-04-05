@@ -79,23 +79,8 @@ const AirCallProvider: FunctionComponent<AirCallProviderProps> = (
             // Update call status in the API
             await updateActivity(callId, isArchived);
 
-            // update the archived and non-archived calls in the state
-            if (isArchived) {
-                const archivedCall = allNonArchivedCalls.find((call) => call.id === callId);
-
-                if (archivedCall) {
-                    setAllArchivedCalls((prev) => [...prev, archivedCall]);
-                    setAllNonArchivedCalls((prev) => prev.filter((call) => call.id !== callId));
-                }
-            }
-            else {
-                const nonArchivedCall = allArchivedCalls.find((call) => call.id === callId);
-
-                if (nonArchivedCall) {
-                    setAllNonArchivedCalls((prev) => [...prev, nonArchivedCall]);
-                    setAllArchivedCalls((prev) => prev.filter((call) => call.id !== callId));
-                }
-            }
+            // Refresh the calls after updating
+            await fetchAllCalls();
 
         } catch (error) {
             console.error("Error updating call status:", error);

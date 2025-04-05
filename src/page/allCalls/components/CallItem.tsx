@@ -44,10 +44,10 @@ function CallItem(props: CallItemProps) {
     const { call, updateCallStatus } = props;
 
     /**
-     * Function to get the icon based on the call type.
-     *
-     * @returns JSX Element representing the call type icon.
-     */
+  * Function to get the icon based on the call type.
+  *
+  * @returns JSX Element representing the call type icon.
+  */
     const getCallIcon = () => {
         switch (call.call_type) {
             case 'missed':
@@ -59,7 +59,7 @@ function CallItem(props: CallItemProps) {
             default:
                 return null;
         }
-    };
+    };;
 
     /**
      * Function to get the icon based on the call direction.
@@ -74,6 +74,22 @@ function CallItem(props: CallItemProps) {
                 return <ArrowOutward color="action" fontSize="small" />;
             default:
                 return null;
+        }
+    };
+
+    /**
+ * Function to get the avatar background color based on call type.
+ */
+    const getAvatarColor = () => {
+        switch (call.call_type) {
+            case 'missed':
+                return 'error.main';
+            case 'answered':
+                return 'success.main';
+            case 'voicemail':
+                return 'info.main';
+            default:
+                return 'grey.500'; // fallback color
         }
     };
 
@@ -103,7 +119,9 @@ function CallItem(props: CallItemProps) {
                 }}
             >
                 <ListItemAvatar>
-                    <Avatar>{getCallIcon()}</Avatar>
+                    <Avatar sx={{ bgcolor: getAvatarColor() }}>
+                        {getCallIcon()}
+                    </Avatar>
                 </ListItemAvatar>
 
                 <ListItemText
