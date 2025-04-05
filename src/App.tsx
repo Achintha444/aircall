@@ -1,22 +1,10 @@
-import { createRoot } from "react-dom/client";
+import './App.css'
+import Main from './page/main/pages/Main'
 
-import Header from './Header';
-import AllCalls from './page/app/pages/AllCalls';
-
-const App = () => {
+function App() {
   return (
-    <>
-      <Header/>
-      {/* <AllCalls/> */}
-      <div className="container-view">Some activities should be here</div>
+   <Main />
+  )
+}
 
-      asdads
-    </>
-  );
-};
-
-createRoot(document.getElementById("app")!).render(
-  <App />
-);
-
-export default App;
+export default App
